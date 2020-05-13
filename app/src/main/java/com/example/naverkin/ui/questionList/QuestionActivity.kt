@@ -3,10 +3,12 @@ package com.example.naverkin.ui.questionList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.naverkin.data.QuestionListResponse
 import com.example.naverkin.R
-import com.example.naverkin.data.RvQuestionListResponse
 import com.example.naverkin.network.RequestURL
+import com.example.naverkin.data.RvQuestionListResponseItems
 import kotlinx.android.synthetic.main.activity_question.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,49 +21,49 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
-        rv_question_list.layoutManager=LinearLayoutManager(this)
+        View.AccessibilityDelegate()
+
+
+
+        rv_question.layoutManager=LinearLayoutManager(this)
         rvQuestionListAdapter= QuestionListAdapter(this)
-        rv_question_list.adapter=rvQuestionListAdapter
-        rvQuestionListAdapter.data= listOf(
-            RvQuestionListResponse(
-                "dfs",
-                "dfsf",
-                "dfds"
-            )
-        )
+        rv_question.adapter=rvQuestionListAdapter
         rvQuestionListAdapter.notifyDataSetChanged()
-        btn_quesstion.setOnClickListener(){
-            getQuestionListResponse()
+
+
+        btn_quesstion.setOnClickListener {
+           getQuestionListResponse()
+            Log.e("","버튼 눌렀다")
+            rvQuestionListAdapter.notifyDataSetChanged()
         }
+
 
     }
 
     private fun getQuestionListResponse(){
-        val call:Call<RvQuestionListResponse> = RequestURL.service.getSearchQuestion(edt_question.text.toString())
+        val call:Call<QuestionListResponse> = RequestURL.service.getSearchQuestion(query = edt_question.text.toString())
+        System.clearProperty("X-Naver-Client-Id")
+        System.clearProperty("X-Naver-Client-Secret")
         call.enqueue(
-            object:Callback<RvQuestionListResponse>{
-                override fun onFailure(call: Call<RvQuestionListResponse>, t: Throwable) {
+            object:Callback<QuestionListResponse>{
+                override fun onFailure(call: Call<QuestionListResponse>, t: Throwable) {
                     Log.e("getQuestionResponse",t.toString())
                 }
 
                 override fun onResponse(
-                    call: Call<RvQuestionListResponse>,
-                    response: Response<RvQuestionListResponse>
+                    call: Call<QuestionListResponse>,
+                    response: Response<QuestionListResponse>
                 ) {
-                    val questionList= mutableListOf<RvQuestionListResponse>()
+                    val questionList= response.body()?.items
                     if(response.isSuccessful){
-
-                        for(item in questionList){
-                            questionList.add(
-                                RvQuestionListResponse(
-                                    item.title,
-                                    item.link,
-                                    item.descripption
-                                )
-                            )
+                        if(questionList!=null) {
+                            rvQuestionListAdapter.data = questionList
+                            Log.e("",questionList.toString())
+                            Log.e("",questionList[0].toString())
+                            Log.e("",rvQuestionListAdapter.data.toString())
+                            Log.e("",rvQuestionListAdapter.data[0].link.toString())
+                            rvQuestionListAdapter.notifyDataSetChanged()
                         }
-                        rvQuestionListAdapter.data=questionList
-                        rvQuestionListAdapter.notifyDataSetChanged()
                     }
                 }
 

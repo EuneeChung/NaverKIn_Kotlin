@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="120dp">
 
     <TextView
         android:id="@+id/txt_question_title"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:text="여긴 제목"
         android:textColor="#2db400"
         android:textSize="18sp"
@@ -21,7 +22,7 @@
     <TextView
         android:id="@+id/txt_question_des"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="여기는 묘사가 들어갈 것이다"
@@ -32,7 +33,7 @@
     <TextView
         android:id="@+id/btn_question_link"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="여긴 링크"

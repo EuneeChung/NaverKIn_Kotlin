@@ -17,7 +17,7 @@
         android:layout_marginRight="92dp"
         android:ems="10"
         android:inputType="textUri|textLongMessage"
-        android:text="무엇을 질문 하시겠습니까?"
+        android:hint="무엇을 질문 하시겠습니까?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -11,6 +11,6 @@ object RequestURL {
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    val service : RequestInterface = retrofit.create(
-        RequestInterface::class.java)
+    val SERVICE : RequestNerworkInterface = retrofit.create(
+        RequestNerworkInterface::class.java)
 }

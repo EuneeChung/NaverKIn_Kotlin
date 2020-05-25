@@ -3,25 +3,22 @@ package com.example.naverkin.ui.questionList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.naverkin.data.QuestionListResponse
 import com.example.naverkin.R
-import com.example.naverkin.network.RequestURL
-import com.example.naverkin.data.RvQuestionListResponseItems
+import com.example.naverkin.data.source.NaverQuestionRepository
 import kotlinx.android.synthetic.main.activity_question.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.koin.android.ext.android.inject
 
 class QuestionActivity : AppCompatActivity() {
+    private val repository: NaverQuestionRepository by inject()
+
     private lateinit var rvQuestionListAdapter: QuestionListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
-        View.AccessibilityDelegate()
+        //View.AccessibilityDelegate()
 
 
 
@@ -41,7 +38,20 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun getQuestionListResponse(){
-        val call:Call<QuestionListResponse> = RequestURL.service.getSearchQuestion(query = edt_question.text.toString())
+
+        repository.getSearch(query=edt_question.text.toString(),
+          onSuccess = {
+              val questionList= it.items
+              rvQuestionListAdapter.data = questionList
+              Log.e("",questionList.toString())
+              Log.e("",questionList[0].toString())
+              Log.e("",rvQuestionListAdapter.data.toString())
+              Log.e("",rvQuestionListAdapter.data[0].link.toString())
+              rvQuestionListAdapter.notifyDataSetChanged()
+          },
+            onFail={})
+
+        /* val call:Call<QuestionListResponse> = RequestURL.SERVICE.getSearchQuestion(query = edt_question.text.toString())
         System.clearProperty("X-Naver-Client-Id")
         System.clearProperty("X-Naver-Client-Secret")
         call.enqueue(
@@ -71,5 +81,6 @@ class QuestionActivity : AppCompatActivity() {
 
         )
 
+        */
     }
 }

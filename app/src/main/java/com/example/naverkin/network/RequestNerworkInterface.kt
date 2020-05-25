@@ -8,7 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 
 
-interface RequestInterface {
+interface RequestNerworkInterface {
 
 
     @GET("/v1/search/kin.json")

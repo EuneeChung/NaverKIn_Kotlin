@@ -3,20 +3,25 @@ package com.example.naverkin.ui.questionList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.naverkin.R
 import com.example.naverkin.data.source.NaverQuestionRepository
+import com.example.naverkin.databinding.ActivityQuestionBinding
 import kotlinx.android.synthetic.main.activity_question.*
 import org.koin.android.ext.android.inject
 
 class QuestionActivity : AppCompatActivity() {
     private val repository: NaverQuestionRepository by inject()
+    private lateinit var  binding: ActivityQuestionBinding
 
     private lateinit var rvQuestionListAdapter: QuestionListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_question)
+      //  setContentView(R.layout.activity_question)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_question)
+        binding.edtQuestion.setText("바인딩 ?? 성공??")
 
         //View.AccessibilityDelegate()
 

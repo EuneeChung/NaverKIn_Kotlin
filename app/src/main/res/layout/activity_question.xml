@@ -34,6 +34,8 @@
         android:layout_height="50dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
+        android:clickable="true"
+        android:onClick="@{()->activity.buttonClicked()}"
         app:layout_constraintStart_toEndOf="@+id/edt_question"
         app:layout_constraintTop_toTopOf="@+id/edt_question"
         app:srcCompat="@drawable/magnification" />

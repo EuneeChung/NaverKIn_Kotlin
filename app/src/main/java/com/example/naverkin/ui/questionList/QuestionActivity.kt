@@ -3,8 +3,10 @@ package com.example.naverkin.ui.questionList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.naverkin.QuestionViewModel
 import com.example.naverkin.R
 import com.example.naverkin.data.source.NaverQuestionRepository
 import com.example.naverkin.databinding.ActivityQuestionBinding
@@ -21,26 +23,41 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
       //  setContentView(R.layout.activity_question)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_question)
-        binding.edtQuestion.setText("바인딩 ?? 성공??")
 
+        binding.activity = this // <- 이거 layout에서 activity 정의해줘서
+        binding.edtQuestion.setText("바인딩")
+
+
+       /* binding.btnQuesstion.setOnClickListener {
+            getQuestionListResponse()
+            Log.e("","버튼 눌렀다")
+            rvQuestionListAdapter.notifyDataSetChanged()
+        }*/
+
+        rv_question.layoutManager=LinearLayoutManager(this)
+        rvQuestionListAdapter= QuestionListAdapter(this)
+
+        //rv_question.adapter=rvQuestionListAdapter
+        binding.rvQuestion.adapter=rvQuestionListAdapter
+
+        rvQuestionListAdapter.notifyDataSetChanged()
         //View.AccessibilityDelegate()
 
 
 
-        rv_question.layoutManager=LinearLayoutManager(this)
-        rvQuestionListAdapter= QuestionListAdapter(this)
-        rv_question.adapter=rvQuestionListAdapter
-        rvQuestionListAdapter.notifyDataSetChanged()
 
-
-        btn_quesstion.setOnClickListener {
+       /*
+       btn_quesstion.setOnClickListener {
            getQuestionListResponse()
             Log.e("","버튼 눌렀다")
             rvQuestionListAdapter.notifyDataSetChanged()
         }
+        */
 
 
     }
+
+
 
     private fun getQuestionListResponse(){
 
@@ -87,5 +104,9 @@ class QuestionActivity : AppCompatActivity() {
         )
 
         */
+    }
+    fun buttonClicked(){
+        getQuestionListResponse()
+        Log.e("df","fds")
     }
 }

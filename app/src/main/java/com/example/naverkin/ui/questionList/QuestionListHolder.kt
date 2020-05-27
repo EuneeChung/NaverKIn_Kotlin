@@ -13,17 +13,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.naverkin.R
 import com.example.naverkin.data.RvQuestionListResponseItems
 import com.example.naverkin.WebActivity
+import com.example.naverkin.databinding.RvQuestionListBinding
 
 
-class QuestionListHolder(private  val view: View,private val context: Context):RecyclerView.ViewHolder(view){
+class QuestionListHolder(private  val binding: RvQuestionListBinding ,private val context: Context):RecyclerView.ViewHolder(binding.root){
 
 
-    val txtTitle: TextView=view.findViewById(R.id.txt_question_title)
+   // val txtTitle: TextView=view.findViewById(R.id.txt_question_title)
 
-    val txtDesc:TextView=view.findViewById(R.id.txt_question_des)
+    // val txtDesc:TextView=view.findViewById(R.id.txt_question_des)
 
 
     fun bind(data: RvQuestionListResponseItems){
+        binding.apply {
+            rvItem=data
+        }
+       /*
         txtTitle.text=Html.fromHtml(data.title)
         txtDesc.text=Html.fromHtml(data.description).slice(0..38)
         txtTitle.setOnClickListener {
@@ -32,5 +37,7 @@ class QuestionListHolder(private  val view: View,private val context: Context):R
             startActivity(context,intent, Bundle())
             Log.e("link",data.link)
         }
+
+        */
     }
 }

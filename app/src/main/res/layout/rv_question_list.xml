@@ -23,6 +23,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="@{rvItem.title}"
+            android:onClick="@{(view)->rvItem.onClickLink(view)}"
             android:textColor="#2db400"
             android:textSize="18sp"
             android:textStyle="bold"
